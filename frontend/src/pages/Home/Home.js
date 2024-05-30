@@ -1,9 +1,25 @@
 import React from 'react'
+import Sidebar from "../Sidebar/Sidebar.js";
+import Widgets from '../Widget/Widgets.js';
+import Feed from "../Feed/Feed.js";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init.js';
+import { Outlet } from 'react-router-dom';
 
 function Home() {
+  const [user ] = useAuthState(auth);
+    const handleLogout = async () => {
+        signOut(auth)
+    };
+    
+    console.log("user",user);
   return (
-    <div>
-      This is Home Page
+    <div className='app'>
+
+      <Sidebar handleLogout={handleLogout} user={user} />
+      <Outlet />
+      <Widgets/>
     </div>
   )
 }
