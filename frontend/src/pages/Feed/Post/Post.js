@@ -1,3 +1,4 @@
+
 import React from "react";
 import "./Post.css";
 import { Avatar } from "@mui/material";
@@ -9,8 +10,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 
 
 function Post({ p }) {
-  const { name, username, photo, post, profilePhoto } = p.userPost
-  
+  const { name, username, image, video, post, profilePhoto ,upvote} = p.userPost
   return (
     <div className="post">
       <div className="post__avatar">
@@ -29,12 +29,23 @@ function Post({ p }) {
             <p>{post}</p>
           </div>
         </div>
-        <img src={photo} alt="" width='500' />
+        <div>{image && <img src={image} alt="" width='500' />}</div>
+        <div>
+          {video &&
+            <video width="320" height="240" controls autoplay>
+              <source src={video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          }
+        </div>
         <div className="post__footer">
           <ChatBubbleOutlineIcon className="post__footer__icon" fontSize="small" />
           <RepeatIcon className="post__footer__icon" fontSize="small" />
           <FavoriteBorderIcon className="post__footer__icon" fontSize="small" />
-          <PublishIcon className="post__footer__icon" fontSize="small" />
+          <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+            <PublishIcon className="post__footer__icon" fontSize="small" />
+            <p>{upvote}</p>
+          </div>
         </div>
       </div>
     </div>

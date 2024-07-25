@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import Signup from '../pages/Login/Signup';
@@ -12,12 +12,14 @@ import Lists from "../pages/Lists/Lists";
 import Profile from "../pages/Profile/Profile";
 import More from "../pages/More/More";
 import Notifications from "../pages/Notifications/Notifications";
-
+import { UserAuthContextProvider } from "../context/UserAuthContext";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <UserAuthContextProvider>
+
+
         <Routes>
           <Route path="/" element={<ProtectedRouter> <Home /></ProtectedRouter>} >
             <Route index element={<Feed />} />
@@ -38,7 +40,7 @@ function App() {
           <Route path='/login' element=<Login /> />
           <Route path='/signup' element=<Signup /> />
         </Routes>
-      </BrowserRouter>
+      </UserAuthContextProvider>
     </div>
   );
 }

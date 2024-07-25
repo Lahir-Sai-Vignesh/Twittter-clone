@@ -1,10 +1,11 @@
+/* TweetBox.css */
 .tweetBox {
   padding-bottom: 10px;
   border-bottom: 8px solid var(--twitter-background);
   padding-right: 10px;
 }
 
-.tweetBox>form {
+.tweetBox > form {
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +16,7 @@
   align-items: center;
 }
 
-.tweetBox__input>input {
+.tweetBox__input > input {
   flex: 1;
   margin-left: 15px;
   font-size: 20px;
@@ -28,9 +29,15 @@
   padding: 5px 20px;
 }
 
-.imageIcon_tweetButton {
+.mediaIcon_tweetButton {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px 0 20px; /* Added padding for better alignment */
+}
+
+.mediaButton {
+  display: flex;
   align-items: center;
 }
 
@@ -43,11 +50,13 @@
   border-radius: 50px !important;
   width: 100px;
   height: 40px !important;
+  cursor: pointer;
 }
 
 .imageIcon {
   color: var(--twitter-color);
   padding-left: 25px;
+  cursor: pointer;
 }
 
 .imageInput {

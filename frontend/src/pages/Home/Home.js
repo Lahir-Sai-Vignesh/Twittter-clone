@@ -11,6 +11,7 @@ function Home() {
   const [user ] = useAuthState(auth);
     const handleLogout = async () => {
         signOut(auth)
+        localStorage.setItem('isOtpVerified', false);
     };
     
     console.log("user",user);
