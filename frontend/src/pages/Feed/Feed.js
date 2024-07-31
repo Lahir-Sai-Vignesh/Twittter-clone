@@ -5,9 +5,10 @@ import Post from "./Post/Post.js";
 import axios from 'axios';
 function Feed() {
     const [posts, setPosts] = useState([]);
+    const url = process.env.REACT_APP_BACKEND_URL
     useEffect(() => {
         //fetch('https://pacific-peak-30751.herokuapp.com/post')
-        axios.get('http://localhost:5000/post')
+        axios.get(`${url}/post`)
             .then(res=> {
                 //console.log(res.data)
                 setPosts(res.data);

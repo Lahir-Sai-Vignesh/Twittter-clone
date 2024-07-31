@@ -20,14 +20,14 @@ function TweetBox() {
     const [videoLoading, setVideoLoading] = useState(false);
     const [otp, setOtp] = useState('');
     const [isOtpSent, setIsOtpSent] = useState(false);
-    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(localStorage.getItem('isOtpVerified')||false);
     const [name, setName] = useState('');
     const [username, setUsername] = useState(' ');
     const [loggedInUser] = useLoggedinUser();
     const [user] = useAuthState(auth);
     
     const email = user?.email;
-
+    const url = process.env.REACT_APP_BACKEND_URL
     const userProfilePic = loggedInUser[0]?.profileImage || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
 
     useEffect(() => {
@@ -81,7 +81,7 @@ function TweetBox() {
 
     const sendOtp = async () => {
         try {
-            await axios.post('http://localhost:5000/send-otp', { email });
+            await axios.post('${url}/send-otp', { email });
             setIsOtpSent(true);
             toast.success('OTP sent to your email');
         } catch (error) {
@@ -91,7 +91,7 @@ function TweetBox() {
 
     const verifyOtp = async () => {
         try {
-            await axios.post('http://localhost:5000/verify-otp', { email, otp });
+            await axios.post('${url}/verify-otp', { email, otp });
             setIsOtpVerified(true);
             localStorage.setItem('isOtpVerified', true);
             toast.success('OTP verified');
@@ -108,7 +108,7 @@ function TweetBox() {
         }
 
         if (user?.providerData[0]?.providerId === 'password') {
-            fetch(`http://localhost:5000/loggedInUser?email=${email}`)
+            fetch(`${url}/loggedInUser?email=${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setName(data[0]?.name);
@@ -151,7 +151,7 @@ function TweetBox() {
             setImgURL('');
             setVideoURL('');
 
-            axios.post("http://localhost:5000/post", { userPost })
+            axios.post("${url}/post", { userPost })
                 .then(res => {
                     console.log(res);
                 })

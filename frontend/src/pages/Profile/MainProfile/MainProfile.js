@@ -11,7 +11,7 @@ import EditProfile from '../EditProfile/EditProfile';
 import axios from "axios";
 import useLoggedInUser from '../../../Hooks/useLoggedinUser.js';
 
-
+const url = process.env.REACT_APP_BACKEND_URL
 const MainProfile = ({ user }) => {
   const navigate = useNavigate();
   // const [imageURL, setImageURL] = useState('');
@@ -21,7 +21,7 @@ const MainProfile = ({ user }) => {
   const username = user?.email?.split('@')[0];
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/userpost?email=${user?.email}`)
+    fetch(`${url}/userpost?email=${user?.email}`)
       .then(res => res.json())
       .then(data => {
         setPosts(data);
@@ -50,7 +50,7 @@ const MainProfile = ({ user }) => {
         setIsLoading(false)
 
         if (url) {
-          fetch(`http://localhost:5000/userUpdates/${user?.email}`, {
+          fetch(`${url}/userUpdates/${user?.email}`, {
             method: "PATCH",
             headers: {
               'content-type': 'application/json'
@@ -89,7 +89,7 @@ const MainProfile = ({ user }) => {
         }
         setIsLoading(false)
         if (url) {
-          fetch(`https://pacific-peak-30751.herokuapp.com/userUpdates/${user?.email}`, {
+          fetch(`${url}/userUpdates/userUpdates/${user?.email}`, {
             method: "PATCH",
             headers: {
               'content-type': 'application/json'

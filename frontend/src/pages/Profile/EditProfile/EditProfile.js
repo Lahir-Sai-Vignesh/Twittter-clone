@@ -83,7 +83,8 @@ export default function EditProfile({ user, loggedInUser }) {
       dob,
     }
     console.log(editedInfo);
-    fetch(`http://localhost:5000/userUpdates/${user?.email}`, {
+    const url = process.env.REACT_APP_BACKEND_URL
+    fetch(`${url}/userUpdates/${user?.email}`, {
       method: "PATCH",
       headers: {
         'content-type': 'application/json'
