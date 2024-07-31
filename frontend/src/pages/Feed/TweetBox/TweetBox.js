@@ -20,7 +20,7 @@ function TweetBox() {
     const [videoLoading, setVideoLoading] = useState(false);
     const [otp, setOtp] = useState('');
     const [isOtpSent, setIsOtpSent] = useState(false);
-    const [isOtpVerified, setIsOtpVerified] = useState(localStorage.getItem('isOtpVerified')||false);
+    const [isOtpVerified, setIsOtpVerified] = useState(localStorage.getItem('isOtpVerified')==='true');
     const [name, setName] = useState('');
     const [username, setUsername] = useState(' ');
     const [loggedInUser] = useLoggedinUser();
@@ -32,7 +32,7 @@ function TweetBox() {
 
     useEffect(() => {
         const otpVerified = localStorage.getItem('isOtpVerified');
-        if (otpVerified === true) {
+        if (otpVerified === "true") {
             setIsOtpVerified(true);
         }
     }, []);
@@ -81,7 +81,7 @@ function TweetBox() {
 
     const sendOtp = async () => {
         try {
-            await axios.post('${url}/send-otp', { email });
+            await axios.post(`${url}/send-otp`, { email });
             setIsOtpSent(true);
             toast.success('OTP sent to your email');
         } catch (error) {
@@ -91,7 +91,7 @@ function TweetBox() {
 
     const verifyOtp = async () => {
         try {
-            await axios.post('${url}/verify-otp', { email, otp });
+            await axios.post(`${url}/verify-otp`, { email, otp });
             setIsOtpVerified(true);
             localStorage.setItem('isOtpVerified', true);
             toast.success('OTP verified');
@@ -151,7 +151,7 @@ function TweetBox() {
             setImgURL('');
             setVideoURL('');
 
-            axios.post("${url}/post", { userPost })
+            axios.post(`${url}/post`, { userPost })
                 .then(res => {
                     console.log(res);
                 })
